@@ -1,4 +1,3 @@
-// ================== DỮ LIỆU DÙNG CHUNG ==================
 let bookings = [
   { bookingCode: "CIN-001", customerName: "Nguyễn Văn An",
     movieTitle: "Ánh Trăng Cuối Phố", ticketCount: 2,
@@ -11,14 +10,13 @@ let bookings = [
     pricePerTicket: 110000, totalAmount: 641520 }
 ];
 
-// ================== HÀM TIỆN ÍCH ==================
 
-// Định dạng tiền Việt Nam: 641520 -> "641.520 VNĐ"
+
+
 function formatMoney(amount) {
   return amount.toLocaleString("vi-VN") + " VNĐ";
 }
 
-// Bỏ khoảng trắng thừa, viết hoa chữ cái đầu mỗi từ: "  phạm   thu  hà " -> "Phạm Thu Hà"
 function normalizeName(text) {
   const words = text.trim().split(/\s+/);
   const result = [];
@@ -28,7 +26,7 @@ function normalizeName(text) {
   return result.join(" ");
 }
 
-// Tìm vị trí đơn đặt vé theo mã, trả về -1 nếu không có
+// Tìm vị trí đơn đặt vé
 function findBookingIndex(code) {
   for (let i = 0; i < bookings.length; i++) {
     if (bookings[i].bookingCode === code) {
@@ -38,7 +36,7 @@ function findBookingIndex(code) {
   return -1;
 }
 
-// Kiểm tra mã đặt vé (đã trim + in hoa), trả về lỗi đầu tiên hoặc "" nếu hợp lệ
+// Kiểm tra mã đặt vé 
 function validateBookingCode(code) {
   if (code === "") {
     return "Lỗi: Chưa nhập mã đặt vé";
@@ -58,7 +56,7 @@ function validateBookingCode(code) {
   return "";
 }
 
-// Nhập số nguyên > 0, nhập lại đến khi đúng; trả về null nếu bấm Cancel
+// Nhập số nguyên > 0
 function inputPositiveInteger(message) {
   while (true) {
     const input = prompt(message);
@@ -66,7 +64,7 @@ function inputPositiveInteger(message) {
       return null;
     }
     const text = input.trim();
-    // /^\d+$/ : chỉ gồm chữ số (loại số âm, số thập phân, chữ cái)
+   
     if (/^\d+$/.test(text) && Number(text) > 0) {
       return Number(text);
     }
@@ -74,7 +72,7 @@ function inputPositiveInteger(message) {
   }
 }
 
-// Nhập chuỗi không rỗng (tên khách / tên phim), đã chuẩn hóa; null nếu Cancel
+// Nhập chuỗi không rỗng (tên khách / tên phim)
 function inputNonEmptyText(message) {
   while (true) {
     const input = prompt(message);
@@ -113,7 +111,7 @@ function displayBookings(list) {
   console.log(`Tổng: ${list.length} đơn đặt vé – Doanh thu: ${formatMoney(revenue)}`);
 }
 
-// ================== CÁC CHỨC NĂNG ==================
+
 
 // Case 1: hiển thị danh sách
 function showBookings() {
@@ -237,7 +235,7 @@ function deleteBooking() {
   }
 }
 
-// Case 5: tìm theo tên phim (không phân biệt hoa/thường)
+// Case 5: tìm theo tên phim
 function searchBookings() {
   const input = prompt("Nhập từ khóa tên phim:");
   if (input === null || input.trim() === "") {
@@ -258,7 +256,7 @@ function searchBookings() {
   displayBookings(results);
 }
 
-// Bonus 2: báo cáo tổng kết khi thoát
+
 function showSummaryReport() {
   const line = "=".repeat(50);
   if (bookings.length === 0) {
@@ -284,7 +282,7 @@ function showSummaryReport() {
   console.log(line);
 }
 
-// ================== MENU CHÍNH ==================
+
 
 // In menu ra console
 function showMenu() {
@@ -300,13 +298,13 @@ function showMenu() {
   console.log("=====================================================");
 }
 
-// Vòng lặp chương trình: chạy đến khi chọn 0
+
 function runProgram() {
   let running = true;
   while (running) {
     showMenu();
     const input = prompt("Vui lòng nhập lựa chọn của bạn (0 - 5):");
-    // Cancel (null) hoặc nhập sai đều rơi vào default
+
     const choice = input === null ? "" : input.trim();
 
     switch (choice) {
